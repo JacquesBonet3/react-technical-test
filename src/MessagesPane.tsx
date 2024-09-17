@@ -4,34 +4,18 @@ import Stack from "@mui/joy/Stack";
 import Typography from "@mui/joy/Typography";
 import ChatBubble from "./ChatBubble";
 import useFetch from "./useFetch";
+import {useIssue} from "./useIssue";
+import {Comment, Issue} from "./types.ts";
+import {useExcludeUsers} from "./useExcludeUsers.ts";
 
-type User = {
-  login: string;
-  avatar_url: string;
-};
 
-type Issue = {
-  id: number;
-  created_at: string;
-  user: User;
 
-  number: number;
-  title: string;
-  body: string;
-  comments_url: string;
-};
-
-type Comment = {
-  id: number;
-  created_at: string;
-  user: User;
-
-  body: string;
-};
 
 export default function MessagesPane() {
-  const issue = useFetch<Issue>({ url: "https://api.github.com/repos/facebook/react/issues/7901" });
+  const url = useIssue( state => state.url)
+  const issue = useFetch<Issue>({ url});
   const comments = useFetch<Comment[]>({ url: issue.data?.comments_url }, { enabled: issue.isFetched });
+  const { excludes} = useExcludeUsers();
 
   return (
     <Sheet
@@ -80,7 +64,9 @@ export default function MessagesPane() {
       {comments.data && (
         <Stack spacing={2} justifyContent="flex-end" px={2} py={3}>
           <ChatBubble variant="solid" {...issue.data!} />
-          {comments.data.map((comment) => (
+          {comments.data
+            .filter( comment => excludes.indexOf(comment.user.login) == -1)
+            .map((comment) => (
             <ChatBubble
               key={comment.id}
               variant={comment.user.login === issue.data!.user.login ? "solid" : "outlined"}

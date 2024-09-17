@@ -1,5 +1,6 @@
-import Input from "@mui/joy/Input";
 import Sheet from "@mui/joy/Sheet";
+import SearchIssue from "./SearchIssue.tsx";
+import Users from "./Users.tsx";
 
 export default function Sidebar() {
   return (
@@ -19,7 +20,8 @@ export default function Sidebar() {
         borderColor: "divider",
       }}
     >
-      <Input value="facebook/react/issues/7901" />
+      <SearchIssue />
+      <Users />
     </Sheet>
   );
 }

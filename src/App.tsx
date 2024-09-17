@@ -4,12 +4,14 @@ import { CssVarsProvider } from "@mui/joy/styles";
 import MessagesPane from "./MessagesPane";
 import Sidebar from "./Sidebar";
 
+
+
 function App() {
   return (
     <CssVarsProvider disableTransitionOnChange>
       <CssBaseline />
       <Box sx={{ display: "flex", minHeight: "100dvh" }}>
-        <Box component="aside" sx={{ width: 300 }}>
+        <Box component="aside" sx={{ width: 350 }}>
           <Sidebar />
         </Box>
         <Box component="main" sx={{ flex: 1 }}>
