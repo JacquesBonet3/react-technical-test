@@ -5,7 +5,6 @@ import MessagesPane from "./MessagesPane";
 import Sidebar from "./Sidebar";
 
 
-
 function App() {
   return (
     <CssVarsProvider disableTransitionOnChange>
