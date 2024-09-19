@@ -11,7 +11,7 @@ type UserProps = UserInfo
 export default function User({ msgNumber, user }: UserProps) {
   const { excludes, change} = useExcludeUsers();
   return (
-    <Stack direction="row" spacing={2}>
+    <Stack direction="row" alignContent="center" spacing={2}>
       <Checkbox
         checked={excludes.indexOf(user.login) == -1}
         onChange={() => change(user.login)}
